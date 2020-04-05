@@ -5,7 +5,7 @@ from semseg.semseg import *
 
 from utils.formatChange.pdf2xml import pdf2layout
 from utils.formatChange.pdf2image import pdf2image
-from utils.formatChange.result2json import rst2json
+from utils.formatChange.result2json import rst2text
 from utils.formatChange.result2image import rst2image
 
 if __name__ == '__main__':
@@ -32,14 +32,13 @@ if __name__ == '__main__':
 
         if not PagesLayout == None:
             semseg = SemanticSegmentation(Conf, PagesImage, PagesLayout)
+            ImageList, textList = rst2image(Conf, semseg, PagesImage, PagesLayout)
 
             if Conf.save_image:
-                ImageList = rst2image(Conf, semseg, PagesImage, PagesLayout)
-                ImageWrite(ImageList, fileName, Conf.img_folder)
+                ImageWrite(ImageList, index+1, Conf.img_folder)
 
             if Conf.save_text:
-                jsonFile = rst2json(Conf, fileName, semseg, PagesLayout)
-                JsonWrite(jsonFile, fileName, Conf.json_folder)
+                JsonWrite(textList, index+1, Conf.json_folder)
 
             Logger.get_log(logging).info("File - {} Processed\n".format(fileName))
 

@@ -5,6 +5,7 @@ from utils.formatChange.visualize.Layout import *
 def rst2image(conf, semseg, PagesImage, PagesLayout):
     TextLevel = conf.text_level
     ImageList = []
+    TextList = []
 
     if TextLevel == 1:
         Text = semseg.Text.Text
@@ -26,8 +27,9 @@ def rst2image(conf, semseg, PagesImage, PagesLayout):
             PageVisualize.annotate(PV, LTTiao, Tiao[index])
             PageVisualize.annotate(PV, LTZhang, Zhang[index])
             PageVisualize.annotate(PV, LTJie, Jie[index])
-            PageVisualize.annotate(PV, LTTitle, Title[index])
+            #PageVisualize.annotate(PV, LTTitle, Title[index])
 
         ImageList.append(PV.Image)
+        TextList.append(PV.Text)
 
-    return ImageList
+    return ImageList, TextList

@@ -4,14 +4,14 @@ import json
 from utils.logging.syslog import Logger
 
 def ImageWrite(ImageList, fileName, fileFolder):
-    imgFolder = fileFolder + fileName[:-4] + '/'
+    imgFolder = fileFolder + str(fileName) + '/'
 
     if not os.path.exists(imgFolder[:-1]):
         os.mkdir(imgFolder)
 
     for index in range(len(ImageList)):
         Image = ImageList[index]
-        imgName = fileName[:-4] + '_p' + str(index+1) + '.jpg'
+        imgName = str(fileName) + '_' + str(index+1) + '.jpg'
         cv2.imwrite(imgFolder + imgName, Image)
 
     logging = Logger(__name__)
@@ -19,10 +19,16 @@ def ImageWrite(ImageList, fileName, fileFolder):
     logging.logger.handlers.clear()
 
 
-def JsonWrite(JsonFile, fileName, fileFolder):
-    jsonPath = fileFolder + fileName[:-4] + '.json'
-    with open(jsonPath, 'w') as f:
-        json.dump(JsonFile, f)
+def JsonWrite(PagesText, fileName, fileFolder):
+    pdf_folder = fileFolder + str(fileName) + '/'
+    if not os.path.exists(pdf_folder):
+        os.mkdir(pdf_folder)
+    for index in range(len(PagesText)):
+        Page = PagesText[index]
+        txtPath = pdf_folder + str(fileName) + '_' + str(index+1) + '.txt'
+        with open(txtPath, 'w') as f:
+            for Line in Page:
+                f.write(Line + '\n')
 
     logging = Logger(__name__)
     Logger.get_log(logging).info('JsonFile Saved')
