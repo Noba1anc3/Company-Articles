@@ -18,7 +18,7 @@ git clone http://47.98.230.217:3000/Doc_SemSeg/Company-Articles-SemSeg.git
 ## 3.环境
 ![Image text](https://img.shields.io/badge/Python-3.6-green?style=flat)
 #####   项目运行所需要的依赖包如下所示：
- - pdfminer
+ - pdfminer3k
  - numpy
  - logzero
  - opencv-python
